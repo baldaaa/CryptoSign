@@ -35,11 +35,19 @@ public class KeyManager{
         }
     }
 
+    /**
+     *
+     * @return set of all key pairs
+     */
     public Set<String> getKeyIds() {
         return keysHolder.keySet();
     }
 
 
+    /**
+     * generates new key pair
+     * @return unique id of generated key pair
+     */
     public String generateKey() {
         String id  = UUID.randomUUID().toString();
         keysHolder.put(id, keyPairGen.generateKeyPair());
@@ -47,6 +55,10 @@ public class KeyManager{
     }
 
 
+    /**
+     * delete key pair by given id
+     * @param id
+     */
     public void deleteKey( String id) {
         KeyPair keyPair = keysHolder.remove(id);
         Objects.requireNonNull(keyPair, "Key does not exist");

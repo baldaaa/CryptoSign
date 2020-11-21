@@ -19,15 +19,26 @@ public class CryptoSignService {
     @Autowired
     KeyManager keyManager;
 
-
+    /**
+     *
+     * @return set of all key pairs
+     */
     public Set<String> getKeyIds() {
         return keyManager.getKeyIds();
     }
 
+    /**
+     * generates new key pair
+     * @return unique id of generated key pair
+     */
     public String generateKey() {
         return keyManager.generateKey();
     }
 
+    /**
+     * delete key pair by given id
+     * @param id
+     */
     public void deleteKey(String id) {
         keyManager.deleteKey(id);
     }
