@@ -41,20 +41,7 @@ public class CryptoSignService {
      */
     public SignatureResponse singData(String id, SignDataRequest data){
 
-        try {
-            Signature sign = Signature.getInstance("SHA256withRSA");
-            sign.initSign(keyManager.getPrivateKey(id));
-            sign.update(data.getData().getBytes(StandardCharsets.UTF_8));
-
-            //Create the signature
-            byte[] signature = sign.sign();
-            //Convert signature byte array to string
-            String signatureStr = new String(Base64Utils.encode(signature), StandardCharsets.UTF_8);
-            return new SignatureResponse(signatureStr);
-        } catch (NoSuchAlgorithmException | SignatureException | InvalidKeyException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Internal server error");
-        }
+        return keyManager.singData(id, data);
     }
 
     /**
@@ -64,24 +51,6 @@ public class CryptoSignService {
      * @return - true/false verification result
      */
     public Boolean verifyData(String id, VerifyDataRequest data) {
-        try {
-            Signature sign = Signature.getInstance("SHA256withRSA");
-            byte[] bytes = data.getData().getBytes(StandardCharsets.UTF_8);
-            sign.initVerify(keyManager.getPublicKey(id));
-            sign.update(bytes);
-
-            //convert signature back to byte array
-            byte[] signature = Base64Utils.decode(data.getSignature().getBytes(StandardCharsets.UTF_8));
-
-            //Verifying the signature
-            return sign.verify(signature);
-
-        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Internal server error");
-        }catch(SignatureException e){
-            e.printStackTrace();
-            return false;
-        }
+        return keyManager.verifyData(id,data);
     }
 }
