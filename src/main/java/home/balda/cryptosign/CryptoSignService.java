@@ -5,12 +5,6 @@ import home.balda.cryptosign.representation.SignatureResponse;
 import home.balda.cryptosign.representation.VerifyDataRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Base64Utils;
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.Signature;
-import java.security.SignatureException;
 import java.util.Set;
 
 @Service
